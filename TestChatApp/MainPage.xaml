@@ -4,7 +4,8 @@
              xmlns:viewmodels="clr-namespace:TestChatApp.ViewModels"
              xmlns:models="clr-namespace:TestChatApp.Models"
              x:DataType="viewmodels:MyBreakfastsViewModel"
-             x:Class="TestChatApp.MainPage">
+             x:Class="TestChatApp.MainPage"
+             Shell.NavBarIsVisible="false">
 
     <Grid Padding="16">
         <Grid.RowDefinitions>
@@ -64,9 +65,19 @@
                                        FontSize="24"/>
 
                                     <!-- Start and End DateTime -->
-                                    <Label Text="Tomorrow, 8:00-11:00 AM"
-                                       FontSize="16"
-                                       Grid.Row="1" />
+                                    <FlexLayout
+                                        Wrap="Wrap"
+                                        Grid.Row="1"
+                                        AlignItems="Start">
+                                        <Label Text="{Binding StartDateTime,
+                                               Converter={StaticResource DateTimeToBreakfastTimeConverter}}" />
+                                        <Label Text=", " />
+                                        <Label Text="{Binding StartDateTime,
+                                               Converter={StaticResource DateTimeToTimeConverter}}" />
+                                        <Label Text=" - " />
+                                        <Label Text="{Binding EndDateTime,
+                                               Converter={StaticResource DateTimeToTimeConverter}}" />
+                                    </FlexLayout>
 
                                     <!-- Description -->
                                     <Label Text="{Binding Description}"

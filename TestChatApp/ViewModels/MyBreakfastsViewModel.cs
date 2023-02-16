@@ -28,8 +28,8 @@ namespace TestChatApp.ViewModels
             {
                 new Breakfast("Vegan Sunshine",
                     "Vegan everything! Join us for a healthy breakfast full of vegan goodies",
-                    DateTime.Now.AddDays(1),
-                    DateTime.Now.AddDays(1).AddHours(-3),
+                    DateTime.Now,
+                    DateTime.Now.AddHours(3),
                     new Uri("https://cdn77-s3.lazycatkitchen.com/wp-content/uploads/2019/04/vegan-breakfast-bowl-portion-1000x1500.jpg"),
                     new List<string>() { "Olive oil", "Cherry Tomatoes","Potatoes", "Salt and pepper"},
                     new List<string>(){ "Pudding" }),
