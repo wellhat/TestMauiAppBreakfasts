@@ -81,6 +81,7 @@
                                         <DataTemplate>
                                             <Border
                                                 Stroke="Transparent"
+                                                StrokeShape="RoundRectangle 16"
                                                 Padding="6"
                                                 Margin="1"
                                                 BackgroundColor="#ecf7ff">
@@ -99,6 +100,7 @@
                                         <DataTemplate>
                                             <Border
                                                 Stroke="Transparent"
+                                                StrokeShape="RoundRectangle 16"
                                                 Padding="6"
                                                 Margin="1"
                                                 BackgroundColor="#f6ddff">
