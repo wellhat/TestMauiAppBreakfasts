@@ -1,42 +1,128 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:TestChatApp.ViewModels"
+             xmlns:models="clr-namespace:TestChatApp.Models"
+             x:DataType="viewmodels:MyBreakfastsViewModel"
              x:Class="TestChatApp.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+    <Grid Padding="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="AUTO"/>
+            <RowDefinition Height="AUTO"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="AUTO"/>
 
-            <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+        </Grid.RowDefinitions>
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+        <!-- Your Breakfasts -->
+        <HorizontalStackLayout>
+            <Label FontFamily="OpenSansSemibold" FontSize="24" Text="Your "/>
+            <Label FontFamily="OpenSansSemibold" FontSize="24" Text="Breakfasts" TextColor="{StaticResource BuberBlue}"/>
+        </HorizontalStackLayout>
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
+        <!-- Breakfasts you have created -->
+        <Label Text="Breakfasts you have created"
+               Grid.Row="1"
+               TextColor="#555" />
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+        <!-- Scrollable list of breakfasts -->
+        <CollectionView
+            ItemsSource="{Binding Breakfasts}"
+            Grid.Row="2" >
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="20"/>
+            </CollectionView.ItemsLayout>
 
-        </VerticalStackLayout>
-    </ScrollView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Breakfast">
+                    <Border MinimumHeightRequest="315"
+                            Stroke="#efefef" >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding Image}"
+                                   Aspect="AspectFill"/>
+
+                            <Grid Grid.Column="1" Padding="16">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="AUTO"/>
+                                    <RowDefinition Height="AUTO"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="AUTO"/>
+                                    <RowDefinition Height="AUTO"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Name -->
+                                <Label Text="{Binding Name}"
+                                       FontSize="24"/>
+
+                                <!-- Start and End DateTime -->
+                                <Label Text="Tomorrow, 8:00-11:00 AM"
+                                       FontSize="16"
+                                       Grid.Row="1" />
+
+                                <!-- Description -->
+                                <Label Text="{Binding Description}"
+                                       Grid.Row="2"
+                                       FontSize="16"
+                                       Padding="0,8,0,0"
+                                       TextColor="#555" />
+
+                                <!-- Savoury ingredients -->
+                                <FlexLayout BindableLayout.ItemsSource="{Binding Savory}"
+                                            Grid.Row="3"
+                                            Wrap="Wrap"
+                                            AlignItems="Start">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border
+                                                Stroke="Transparent"
+                                                Padding="6"
+                                                Margin="1"
+                                                BackgroundColor="#ecf7ff">
+                                                <Label Text="{Binding .}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+
+                                </FlexLayout>
+                                <!-- Sweet ingredients -->
+                                <FlexLayout BindableLayout.ItemsSource="{Binding Sweet}"
+                                            Grid.Row="4"
+                                            Wrap="Wrap"
+                                            AlignItems="Start">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border
+                                                Stroke="Transparent"
+                                                Padding="6"
+                                                Margin="1"
+                                                BackgroundColor="#f6ddff">
+                                                <Label Text="{Binding .}"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+
+                                </FlexLayout>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!-- Create new Breakfast button -->
+        <Button Text="Create new Breakfast"
+                BackgroundColor="Black"
+                Padding="16"
+                CornerRadius="2"
+                Grid.Row="3"/>
+
+    </Grid>
 
 </ContentPage>
 
