@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using TestChatApp.Models;
 
 namespace TestChatApp.ViewModels
@@ -6,16 +7,24 @@ namespace TestChatApp.ViewModels
     public partial class MyBreakfastsViewModel : ObservableObject
     {
         [ObservableProperty]
-        private List<Breakfast> breakfasts;
+        bool isRefreshing;
+
+        [ObservableProperty]
+        List<Breakfast> breakfasts;
 
         public MyBreakfastsViewModel()
         {
             LoadBreakfasts();
         }
 
-        private void LoadBreakfasts()
+        [RelayCommand]
+        public async Task LoadBreakfasts()
         {
-            Breakfasts = new List<Breakfast>()
+            await Task.Delay(1660);
+
+            try
+            {
+                Breakfasts = new List<Breakfast>()
             {
                 new Breakfast("Vegan Sunshine",
                     "Vegan everything! Join us for a healthy breakfast full of vegan goodies",
@@ -34,6 +43,12 @@ namespace TestChatApp.ViewModels
                     new List<string>() { "Pancakes", "Maple Syrup","Seasonal fruits"}
                     ),
             };
+            }
+            finally
+            {
+                IsRefreshing = false;
+            }
+
         }
     }
 }

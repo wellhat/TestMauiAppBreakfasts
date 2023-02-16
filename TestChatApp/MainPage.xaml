@@ -25,97 +25,102 @@
         <Label Text="Breakfasts you have created"
                Grid.Row="1"
                TextColor="#555" />
-
         <!-- Scrollable list of breakfasts -->
-        <CollectionView
-            ItemsSource="{Binding Breakfasts}"
-            Grid.Row="2" >
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical"
+        <RefreshView
+            Grid.Row="2"
+            Margin="0,16"
+            IsRefreshing="{Binding IsRefreshing}"
+            Command="{Binding LoadBreakfastsCommand}">
+            <CollectionView
+            ItemsSource="{Binding Breakfasts}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
                                    ItemSpacing="20"/>
-            </CollectionView.ItemsLayout>
+                </CollectionView.ItemsLayout>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="models:Breakfast">
-                    <Border MinimumHeightRequest="315"
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Breakfast">
+                        <Border MinimumHeightRequest="315"
                             Stroke="#efefef" >
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="2*"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Source="{Binding Image}"
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding Image}"
                                    Aspect="AspectFill"/>
 
-                            <Grid Grid.Column="1" Padding="16">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="AUTO"/>
-                                    <RowDefinition Height="AUTO"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="AUTO"/>
-                                    <RowDefinition Height="AUTO"/>
-                                </Grid.RowDefinitions>
+                                <Grid Grid.Column="1" Padding="16">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="AUTO"/>
+                                        <RowDefinition Height="AUTO"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="AUTO"/>
+                                        <RowDefinition Height="AUTO"/>
+                                    </Grid.RowDefinitions>
 
-                                <!-- Name -->
-                                <Label Text="{Binding Name}"
+                                    <!-- Name -->
+                                    <Label Text="{Binding Name}"
                                        FontSize="24"/>
 
-                                <!-- Start and End DateTime -->
-                                <Label Text="Tomorrow, 8:00-11:00 AM"
+                                    <!-- Start and End DateTime -->
+                                    <Label Text="Tomorrow, 8:00-11:00 AM"
                                        FontSize="16"
                                        Grid.Row="1" />
 
-                                <!-- Description -->
-                                <Label Text="{Binding Description}"
+                                    <!-- Description -->
+                                    <Label Text="{Binding Description}"
                                        Grid.Row="2"
                                        FontSize="16"
                                        Padding="0,8,0,0"
                                        TextColor="#555" />
 
-                                <!-- Savoury ingredients -->
-                                <FlexLayout BindableLayout.ItemsSource="{Binding Savory}"
+                                    <!-- Savoury ingredients -->
+                                    <FlexLayout BindableLayout.ItemsSource="{Binding Savory}"
                                             Grid.Row="3"
                                             Wrap="Wrap"
                                             AlignItems="Start">
-                                    <BindableLayout.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border
                                                 Stroke="Transparent"
                                                 StrokeShape="RoundRectangle 16"
                                                 Padding="6"
                                                 Margin="1"
                                                 BackgroundColor="#ecf7ff">
-                                                <Label Text="{Binding .}"/>
-                                            </Border>
-                                        </DataTemplate>
-                                    </BindableLayout.ItemTemplate>
+                                                    <Label Text="{Binding .}"/>
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
 
-                                </FlexLayout>
-                                <!-- Sweet ingredients -->
-                                <FlexLayout BindableLayout.ItemsSource="{Binding Sweet}"
+                                    </FlexLayout>
+                                    <!-- Sweet ingredients -->
+                                    <FlexLayout BindableLayout.ItemsSource="{Binding Sweet}"
                                             Grid.Row="4"
                                             Wrap="Wrap"
                                             AlignItems="Start">
-                                    <BindableLayout.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border
                                                 Stroke="Transparent"
                                                 StrokeShape="RoundRectangle 16"
                                                 Padding="6"
                                                 Margin="1"
                                                 BackgroundColor="#f6ddff">
-                                                <Label Text="{Binding .}"/>
-                                            </Border>
-                                        </DataTemplate>
-                                    </BindableLayout.ItemTemplate>
+                                                    <Label Text="{Binding .}"/>
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
 
-                                </FlexLayout>
+                                    </FlexLayout>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
 
         <!-- Create new Breakfast button -->
         <Button Text="Create new Breakfast"
